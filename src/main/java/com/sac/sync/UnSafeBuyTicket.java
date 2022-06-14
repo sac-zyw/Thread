@@ -23,18 +23,19 @@ class BuyTicket implements Runnable {
         while (flag) {
             try {
                 buy();
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    private void buy() throws InterruptedException {
+    //synchronized 同步方法，锁的是this
+    private synchronized void buy() {
         if (ticketNums <= 0) {
             flag = false;
             return;
         }
-        Thread.sleep(100);
         System.out.println(Thread.currentThread().getName() + "买到了第" + ticketNums-- + "张票");
     }
 }
